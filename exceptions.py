@@ -85,3 +85,20 @@ class InsufficientBalanceError(EntainBaseError):
             f"Insufficient platform balance for customer {customer_id}: "
             f"payout={required}, pool={available}"
         )
+
+
+class DistributedLockError(EntainBaseError):
+    """Raised when a distributed lock operation fails due to an unexpected
+    (non-contention) error, e.g. a DynamoDB service/network failure."""
+    def __init__(self, resource_id: str, reason: str):
+        self.resource_id = resource_id
+        self.reason = reason
+        super().__init__(f"Distributed lock operation failed for resource {resource_id}: {reason}")
+
+
+class PayoutProcessingError(EntainBaseError):
+    """Raised when the payout service fails unexpectedly while crediting a customer."""
+    def __init__(self, bet_id: UUID, reason: str):
+        self.bet_id = bet_id
+        self.reason = reason
+        super().__init__(f"Payout processing failed for bet {bet_id}: {reason}")
