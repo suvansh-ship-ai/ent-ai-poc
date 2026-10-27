@@ -1,4 +1,4 @@
-# Entain AI POC
+# SW Virtual AI POC
 
 Sample codebase for the AI Virtual Engineer proof-of-concept.
 
